@@ -6,7 +6,8 @@ module.exports = {
   entry: './src/index.ts',
   mode: 'development',
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    port: 8888
   },
   module: {
     rules: [
@@ -18,6 +19,24 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: '/node_modules/'
+      },
+      {
+        test: /\.(ttf|eot|svg|gif|png|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [{
+          loader: 'file-loader'
+        }]
+      },
+      {
+        test: /\.(sass|scss)$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader'
+        }, {
+          loader: 'resolve-url-loader'
+        }, {
+          loader: 'sass-loader'
+        }]
       }
     ]
   },
@@ -28,7 +47,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.ts', '.js', '.html']
+    extensions: ['.ts', '.js', '.html', '.scss', '.sass', '.css']
   },
   output: {
     filename: 'bundle.js',
